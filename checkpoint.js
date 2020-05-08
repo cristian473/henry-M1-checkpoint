@@ -77,28 +77,8 @@ var objContains = function(obj, prop, value){
 // Pista: utilizar el método Array.isArray() para determinar si algun elemento de array es un array anidado
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
-    // var countArray = function(array){
-
-    //   if (array[0] == undefined) return 0;
-      
-
-      
-    //   for (var i = 0 ; i < array.length; i++){
-          
-    //       if (Array.isArray(array[i]) == true){
-    //         var suma = array[i]+ array[i+1];
-    //         return countArray(array[i]+suma);
-    //       }
-    //   }
-
-    //   return suma;
-
-
-
-      
-    // }
     var countArray = function (array){
-      if (array.length === 0) {
+      if (array[0] == undefined) {
         return 0;
       }
       
