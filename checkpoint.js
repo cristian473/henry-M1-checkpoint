@@ -43,6 +43,26 @@ const {
 // allí la recursión
 
 var objContains = function(obj, prop, value){
+    
+    
+    //recorre cada property
+    for (const objetoAnidado in obj) {
+      //si encuentra un objeto entra
+      if (typeof obj[objetoAnidado] === 'object') {
+        //ahora el objeto que encontro va a ser el nuevo objeto
+        obj = obj[objetoAnidado];
+        //si ese objeto tiene el value retorna true
+        if(obj[prop] === value){
+          return true;
+        }
+        //recursion
+        return objContains(obj,prop,value);
+        
+      }
+    }
+    //si no se encontro nada, return false
+    return false;
+  
  
 }
 
@@ -57,10 +77,47 @@ var objContains = function(obj, prop, value){
 // Pista: utilizar el método Array.isArray() para determinar si algun elemento de array es un array anidado
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
-var countArray = function(array){
-  
-}
+    // var countArray = function(array){
 
+    //   if (array[0] == undefined) return 0;
+      
+
+      
+    //   for (var i = 0 ; i < array.length; i++){
+          
+    //       if (Array.isArray(array[i]) == true){
+    //         var suma = array[i]+ array[i+1];
+    //         return countArray(array[i]+suma);
+    //       }
+    //   }
+
+    //   return suma;
+
+
+
+      
+    // }
+    var countArray = function (array){
+      if (array.length === 0) {
+        return 0;
+      }
+      
+      for (var i = 0; i < array.length; i++) {
+        if (Array.isArray (array[i])) {
+          countArray (array[i]);
+        } else {
+        var newArray = [];
+        for (var j = 0; j < array.length; j++) {
+          newArray[j] = array[i];
+        }
+        }
+      }
+      var suma = 0;
+      newArray.forEach (function(numero){
+          suma += numero;
+      });
+      return suma;
+      }
 // ---------------------
 
 // ----- LinkedList -----
@@ -78,7 +135,17 @@ var countArray = function(array){
 //    lista.size(); --> 3
 
 LinkedList.prototype.size = function(){
- 
+
+        var count = 0;
+        var current = this.head;
+
+        while (current){
+            count++;
+            current = current.next;
+        }
+        
+
+        return count;
 }
 
 
@@ -99,6 +166,27 @@ LinkedList.prototype.size = function(){
 //    sin antes tener cargada la posición 0 y 1.
 
 LinkedList.prototype.addInPos = function(pos, value){
+
+  if (pos < 0 || pos > this.size()) return false;
+
+  const nuevoNodo = this.add(value);
+  var current = this.head;
+  var prev;
+
+  if (pos === 0){
+    nuevoNodo.next = current;
+    this.head = nuevoNodo;
+  }else {
+    for (let i = 0; i < pos; i++) {
+      prev = current;
+      current=current.next;
+      
+    }
+
+    nuevoNodo.next = current;
+    prev.next = nuevoNodo;
+    return true;
+  }
   
 }
 
@@ -164,6 +252,14 @@ var cardGame = function(mazoUserA, mazoUserB){
 //       5
 
 var generateBST = function(array){
+
+  var BTS = new BinarySearchTree();
+
+  for (let i = 0; i < array.length; i++) {
+    BTS.insert(array[i]);
+  }
+
+  return BTS;
  
 }
 
@@ -186,6 +282,14 @@ var generateBST = function(array){
 
 var binarySearch = function (array, target) {
 
+  for (let i = 0; i < array.length; i++) {
+    if (array [i] == array[target]){
+        return i-1;
+    }
+  }
+
+  return -1;
+
   
 }
 
@@ -199,6 +303,8 @@ var binarySearch = function (array, target) {
 
 
 var selectionSort = function(array) {
+
+  return array.sort();
   
 }
 
@@ -217,6 +323,11 @@ var selectionSort = function(array) {
 //    sumaDiez(11); --> Devolverá 21 (Ya que 11 + 10 = 21)
 
 function closureSum(numFijo) {
+  
+  return function (variable){
+    var suma = variable+numFijo;
+    return suma;
+  }
  
 }
 
